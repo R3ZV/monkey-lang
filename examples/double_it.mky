@@ -1,0 +1,6 @@
+let double = fn(n) {
+	2 * n; 
+};
+
+let n = 5;
+let result = double(n);

@@ -1,0 +1,11 @@
+let fact = fn(n) {
+	if (n == 1) {
+		1;
+	}
+
+	return n * fact(n - 1);
+};
+
+let n = 5;
+let result = fact(n);
+print(result)

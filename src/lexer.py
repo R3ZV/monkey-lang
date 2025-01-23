@@ -1,4 +1,5 @@
 from src.token import Token, TokenType
+from typing import List
 
 
 class Lexer:
@@ -14,6 +15,17 @@ class Lexer:
         self.char = ""
 
         self.read_char()
+
+    def tokens(self) -> List[Token]:
+        tokens = []
+        while True:
+            token = self.next_token()
+            tokens.append(token)
+
+            if token.type == TokenType.EOF:
+                break
+
+        return tokens
 
     def next_token(self) -> Token:
         self.skip_whitespace()

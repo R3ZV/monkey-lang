@@ -28,7 +28,7 @@ class TokenType(Enum):
 
 class Token:
     literal: str
-    type: str
+    type: TokenType
 
     def __init__(
         self,
@@ -37,6 +37,9 @@ class Token:
     ) -> None:
         self.literal = literal
         self.type = type
+
+    def __repr__(self) -> str:
+        return f"Litera = ({self.literal}) | Type = {self.type}"
 
     @staticmethod
     def look_identifier(ident: str) -> TokenType:
