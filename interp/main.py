@@ -1,5 +1,5 @@
 from argparse import ArgumentParser
-from src.lexer import Lexer
+from interp.lexer import Lexer
 
 
 def main() -> int:
@@ -9,6 +9,7 @@ def main() -> int:
     args = parser.parse_args()
     if args.filename[-4:] != ".mky":
         print("Cannot interpret a non monkey file!")
+        print("Monkey lang files end in '.mky'")
         return 1
 
     input: str
@@ -20,8 +21,12 @@ def main() -> int:
         print(f"{args.filename} not found!")
         return 1
 
+    # interpretor = Interpretor(input)
+    # interpretor.run()
+
     for token in Lexer(input).tokens():
         print(token)
+
     return 0
 
 

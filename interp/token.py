@@ -12,6 +12,12 @@ class TokenType(Enum):
     # Operators
     ASSIGN = "="
     PLUS = "+"
+    NOT = "!"
+    MINUS = "-"
+    MULT = "*"
+    DIV = "/"
+    GT = ">"
+    LT = "<"
 
     # Delimiters
     COMMA = ","
@@ -24,6 +30,11 @@ class TokenType(Enum):
     # Keywords
     FUNCTION = "FUNCTION"
     LET = "LET"
+    FALSE = "FALSE"
+    TRUE = "TRUE"
+    IF = "IF"
+    ELSE = "ELSE"
+    RETURN = "RETURN"
 
 
 class Token:
@@ -46,6 +57,11 @@ class Token:
         identifiers = {
             "let": TokenType.LET,
             "fn": TokenType.FUNCTION,
+            "false": TokenType.FALSE,
+            "true": TokenType.TRUE,
+            "if": TokenType.IF,
+            "else": TokenType.ELSE,
+            "return": TokenType.RETURN,
         }
 
         if ident in identifiers:

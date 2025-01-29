@@ -1,4 +1,4 @@
-from src.token import Token, TokenType
+from interp.token import Token, TokenType
 from typing import List
 
 
@@ -46,10 +46,22 @@ class Lexer:
                 token = Token(TokenType.RBRACE, self.char)
             case ",":
                 token = Token(TokenType.COMMA, self.char)
+            case "!":
+                token = Token(TokenType.NOT, self.char)
+            case "-":
+                token = Token(TokenType.MINUS, self.char)
+            case "*":
+                token = Token(TokenType.MULT, self.char)
+            case "/":
+                token = Token(TokenType.DIV, self.char)
+            case ">":
+                token = Token(TokenType.GT, self.char)
+            case "<":
+                token = Token(TokenType.LT, self.char)
             case ";":
                 token = Token(TokenType.SEMICOLON, self.char)
             case "":
-                token = Token(TokenType.EOF, "")
+                token = Token(TokenType.EOF, "EOF")
             case _:
                 # Early return because we self.read_char() at the end
                 # and we have already called self.read_char() in
