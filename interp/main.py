@@ -3,29 +3,38 @@ from interp.lexer import Lexer
 
 
 def main() -> int:
-    parser = ArgumentParser()
-    parser.add_argument("filename")
+    parser = ArgumentParser(prog="monkey")
+    parser.add_argument("filename", nargs="?")
 
     args = parser.parse_args()
-    if args.filename[-4:] != ".mky":
-        print("Cannot interpret a non monkey file!")
-        print("Monkey lang files end in '.mky'")
-        return 1
+    if args.filename != None:
+        if args.filename[-4:] != ".mky":
+            print("Cannot interpret a non monkey file!")
+            print("Monkey lang files end in '.mky'")
+            return 1
 
-    input: str
+        file_content: str
 
-    try:
-        with open(args.filename, "r") as f:
-            input = f.read()
-    except FileNotFoundError:
-        print(f"{args.filename} not found!")
-        return 1
+        try:
+            with open(args.filename, "r") as f:
+                file_content = f.read()
+        except FileNotFoundError:
+            print(f"{args.filename} not found!")
+            return 1
 
-    # interpretor = Interpretor(input)
-    # interpretor.run()
-
-    for token in Lexer(input).tokens():
-        print(token)
+        for token in Lexer(file_content).tokens():
+            print(token)
+    else:
+        content = ""
+        while True:
+            line = input(">> ")
+            if line == "":
+                for token in Lexer(content).tokens():
+                    print(token)
+            elif line == "q":
+                break
+            else:
+                content += line
 
     return 0
 

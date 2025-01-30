@@ -4,13 +4,13 @@ from typing import List
 
 class Lexer:
     input: str
-    pos: int
+    curr_pos: int
     read_pos: int
     char: str
 
     def __init__(self, input: str) -> None:
         self.input = input
-        self.pos = 0
+        self.curr_pos = 0
         self.read_pos = 0
         self.char = ""
 
@@ -35,7 +35,12 @@ class Lexer:
             case "+":
                 token = Token(TokenType.PLUS, self.char)
             case "=":
-                token = Token(TokenType.ASSIGN, self.char)
+                next_char = self.peek()
+                if next_char == "=":
+                    token = Token(TokenType.EQL, self.char + next_char)
+                    self.read_char()
+                else:
+                    token = Token(TokenType.ASSIGN, self.char)
             case "(":
                 token = Token(TokenType.LPAREN, self.char)
             case ")":
@@ -47,7 +52,12 @@ class Lexer:
             case ",":
                 token = Token(TokenType.COMMA, self.char)
             case "!":
-                token = Token(TokenType.NOT, self.char)
+                next_char = self.peek()
+                if next_char == "=":
+                    token = Token(TokenType.NOT_EQL, self.char + next_char)
+                    self.read_char()
+                else:
+                    token = Token(TokenType.NOT, self.char)
             case "-":
                 token = Token(TokenType.MINUS, self.char)
             case "*":
@@ -82,6 +92,11 @@ class Lexer:
         self.read_char()
         return token
 
+    def peek(self) -> str:
+        if self.read_pos >= len(self.input):
+            return ""
+        return self.input[self.read_pos]
+
     def skip_whitespace(self) -> None:
         while self.char in ["\n", " ", "\r", "\t"]:
             self.read_char()
@@ -92,24 +107,24 @@ class Lexer:
         else:
             self.char = self.input[self.read_pos]
 
-        self.pos = self.read_pos
+        self.curr_pos = self.read_pos
         self.read_pos += 1
 
     def read_identifier(self) -> str:
-        start = self.pos
+        start = self.curr_pos
         while self.is_letter(self.char):
             self.read_char()
 
-        end = self.pos
+        end = self.curr_pos
 
         return self.input[start:end]
 
     def read_number(self) -> str:
-        start = self.pos
+        start = self.curr_pos
         while self.is_number(self.char):
             self.read_char()
 
-        end = self.pos
+        end = self.curr_pos
 
         return self.input[start:end]
 

@@ -11,8 +11,10 @@ class TokenType(Enum):
 
     # Operators
     ASSIGN = "="
-    PLUS = "+"
     NOT = "!"
+    EQL = "=="
+    NOT_EQL = "!="
+    PLUS = "+"
     MINUS = "-"
     MULT = "*"
     DIV = "/"

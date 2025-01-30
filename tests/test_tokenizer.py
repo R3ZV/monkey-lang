@@ -161,3 +161,25 @@ if (5 < 10) {
         token = lexer.next_token()
         assert token.literal == t.literal
         assert token.type == t.type
+
+
+def test_double_char_tokens():
+    input = "5 != 4; 5 == 5;"
+
+    want = [
+        Token(TokenType.INT, "5"),
+        Token(TokenType.NOT_EQL, "!="),
+        Token(TokenType.INT, "4"),
+        Token(TokenType.SEMICOLON, ";"),
+        Token(TokenType.INT, "5"),
+        Token(TokenType.EQL, "=="),
+        Token(TokenType.INT, "5"),
+        Token(TokenType.SEMICOLON, ";"),
+        Token(TokenType.EOF, "EOF"),
+    ]
+
+    lexer = Lexer(input)
+    for t in want:
+        token = lexer.next_token()
+        assert token.literal == t.literal
+        assert token.type == t.type
